@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to resize, compress, and optimize your images. Maintain aspect ratio or set exact dimensions. Supports JPG, PNG, WEBP formats.">
+    <meta name="keywords" content="image resizer, photo compressor, image optimizer, resize pictures, online image editor">
+    <meta name="author" content="Image Resizer Tool">
+    <meta name="robots" content="index, follow">
+    <title>Image Resizer Tool - Resize & Compress Images Online</title>
+    <link rel="canonical" href="https://yourwebsite.com/image-resizer" />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Image Resizer Tool - Resize & Compress Images Online">
+    <meta property="og:description" content="Free online tool to resize, compress, and optimize your images. Maintain aspect ratio or set exact dimensions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/image-resizer">
+    <meta property="og:image" content="https://yourwebsite.com/images/image-resizer-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Resizer Tool",
+      "url": "https://yourwebsite.com/image-resizer",
+      "description": "Free online tool to resize, compress, and optimize your images.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any"
+    }
+    </script>
+    
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --medium-gray: #666;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .ad-banner {
+            background-color: var(--light-gray);
+            padding: 15px;
+            text-align: center;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+        
+        .tool-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tool-header h2 {
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tool-header p {
+            color: var(--medium-gray);
+        }
+        
+        .tool-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .upload-section {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-section:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(66, 133, 244, 0.05);
+        }
+        
+        .upload-section.active {
+            border-color: var(--secondary-color);
+            background-color: rgba(52, 168, 83, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .settings-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .setting-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .setting-group h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .dimension-inputs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .dimension-input {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input[type="number"], 
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        
+        .quality-value {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3367d6;
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .result-section {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .result-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .image-preview {
+            flex: 1;
+            min-width: 300px;
+            max-width: 100%;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-info {
+            margin-top: 1rem;
+            text-align: left;
+        }
+        
+        .download-btn {
+            margin-top: 1.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.75rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .settings-section {
+                flex-direction: column;
+            }
+            
+            .dimension-inputs {
+                flex-direction: column;
+            }
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="/" class="logo">Image<span>Resizer</span></a>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tools">Tools</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h1>Free Online Image Resizer</h1>
+            <p>Resize, compress, and optimize your images in seconds. Perfect for social media, websites, and more. Maintain aspect ratio or set exact dimensions.</p>
+        </section>
+        
+        <!-- Ad Banner Top -->
+        <div class="ad-banner">
+            <!-- Replace with your Google AdSense ad unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                crossorigin="anonymous"></script>
+            <!-- ImageResizer_Top -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <section class="tool-container">
+            <div class="tool-header">
+                <h2>Resize Your Image</h2>
+                <p>Upload an image and adjust the settings below</p>
+            </div>
+            
+            <div class="tool-content">
+                <div class="upload-section" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <h3>Drag & Drop your image here</h3>
+                    <p>or click to browse files</p>
+                    <p class="small">Supports JPG, PNG, WEBP (Max 10MB)</p>
+                    <input type="file" id="fileInput" class="file-input" accept="image/*">
+                </div>
+                
+                <div class="settings-section">
+                    <div class="setting-group">
+                        <h3>Resize Options</h3>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="maintainAspect" name="resizeOption" value="maintain" checked>
+                                <label for="maintainAspect">Maintain Aspect Ratio</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="exactDimensions" name="resizeOption" value="exact">
+                                <label for="exactDimensions">Exact Dimensions</label>
+                            </div>
+                        </div>
+                        
+                        <div class="dimension-inputs">
+                            <div class="dimension-input">
+                                <label for="width">Width (px)</label>
+                                <input type="number" id="width" min="1" value="800">
+                            </div>
+                            <div class="dimension-input" id="heightContainer">
+                                <label for="height">Height (px)</label>
+                                <input type="number" id="height" min="1" value="600">
+                            </div>
+                        </div>
+                        
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="lockAspect" checked>
+                            <label for="lockAspect">Lock Aspect Ratio</label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Output Format</h3>
+                        <select id="outputFormat">
+                            <option value="original">Same as original</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Compression Quality</h3>
+                        <input type="range" id="quality" min="10" max="100" value="80">
+                        <div class="quality-value"><span id="qualityValue">80</span>%</div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="resetBtn" class="btn-secondary">Reset</button>
+                    <button id="processBtn" class="btn-primary">Process Image</button>
+                </div>
+                
+                <div class="spinner" id="loadingSpinner"></div>
+                
+                <div class="result-section" id="resultSection">
+                    <h3>Your Resized Image</h3>
+                    <div class="result-container">
+                        <div class="image-preview">
+                            <img id="originalPreview" src="" alt="Original Image">
+                            <div class="image-info">
+                                <p><strong>Original:</strong> <span id="originalSize">-</span>, <span id="originalDimensions">-</span></p>
+                            </div>
+                        </div>
+                        <div class="image-preview">
+                            <img id="resizedPreview" src="" alt="Resized Image">
+                            <div class="image-info">
+                                <p><strong>Resized:</strong> <span id="resizedSize">-</span>, <span id="resizedDimensions">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="downloadBtn" class="btn-primary download-btn">Download Resized Image</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Ad Banner Bottom -->
+        <div class="ad-banner">
+            <!-- Replace with your Google AdSense ad unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                crossorigin="anonymous"></script>
+            <!-- ImageResizer_Bottom -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/faq">FAQ</a>
+                <a href="/contact">Contact Us</a>
+            </div>
+            <p class="copyright">© 2023 Image Resizer Tool. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const widthInput = document.getElementById('width');
+            const heightInput = document.getElementById('height');
+            const lockAspectCheckbox = document.getElementById('lockAspect');
+            const maintainAspectRadio = document.getElementById('maintainAspect');
+            const exactDimensionsRadio = document.getElementById('exactDimensions');
+            const outputFormatSelect = document.getElementById('outputFormat');
+            const qualitySlider = document.getElementById('quality');
+            const qualityValue = document.getElementById('qualityValue');
+            const processBtn = document.getElementById('processBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const resultSection = document.getElementById('resultSection');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const originalPreview = document.getElementById('originalPreview');
+            const resizedPreview = document.getElementById('resizedPreview');
+            const originalSize = document.getElementById('originalSize');
+            const resizedSize = document.getElementById('resizedSize');
+            const originalDimensions = document.getElementById('originalDimensions');
+            const resizedDimensions = document.getElementById('resizedDimensions');
+            
+            // Variables
+            let originalImage = null;
+            let aspectRatio = 1;
+            let resizedImageBlob = null;
+            
+            // Event Listeners
+            uploadArea.addEventListener('click', () => fileInput.click());
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('active');
+            });
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('active');
+            });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('active');
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect();
+                }
+            });
+            
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            widthInput.addEventListener('input', handleDimensionChange);
+            heightInput.addEventListener('input', handleDimensionChange);
+            
+            lockAspectCheckbox.addEventListener('change', () => {
+                if (lockAspectCheckbox.checked && originalImage) {
+                    aspectRatio = originalImage.width / originalImage.height;
+                    heightInput.value = Math.round(widthInput.value / aspectRatio);
+                }
+            });
+            
+            maintainAspectRadio.addEventListener('change', updateHeightInputState);
+            exactDimensionsRadio.addEventListener('change', updateHeightInputState);
+            
+            qualitySlider.addEventListener('input', () => {
+                qualityValue.textContent = qualitySlider.value;
+            });
+            
+            processBtn.addEventListener('click', processImage);
+            resetBtn.addEventListener('click', resetTool);
+            downloadBtn.addEventListener('click', downloadImage);
+            
+            // Functions
+            function handleFileSelect() {
+                const file = fileInput.files[0];
+                if (!file) return;
+                
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file.');
+                    return;
+                }
+                
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('File size exceeds 10MB limit.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    originalImage = new Image();
+                    originalImage.onload = function() {
+                        aspectRatio = originalImage.width / originalImage.height;
+                        
+                        // Set initial dimensions while maintaining aspect ratio
+                        widthInput.value = Math.min(originalImage.width, 800);
+                        if (lockAspectCheckbox.checked) {
+                            heightInput.value = Math.round(widthInput.value / aspectRatio);
+                        }
+                        
+                        // Display original image info
+                        originalPreview.src = e.target.result;
+                        originalSize.textContent = formatFileSize(file.size);
+                        originalDimensions.textContent = `${originalImage.width} × ${originalImage.height} px`;
+                        
+                        // Enable process button
+                        processBtn.disabled = false;
+                    };
+                    originalImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            function handleDimensionChange(e) {
+                if (!originalImage) return;
+                
+                if (lockAspectCheckbox.checked && maintainAspectRadio.checked) {
+                    if (e.target === widthInput) {
+                        heightInput.value = Math.round(widthInput.value / aspectRatio);
+                    } else if (e.target === heightInput) {
+                        widthInput.value = Math.round(heightInput.value * aspectRatio);
+                    }
+                }
+            }
+            
+            function updateHeightInputState() {
+                if (exactDimensionsRadio.checked) {
+                    heightInput.disabled = false;
+                    lockAspectCheckbox.disabled = false;
+                } else {
+                    heightInput.disabled = true;
+                    lockAspectCheckbox.disabled = true;
+                    if (originalImage) {
+                        heightInput.value = Math.round(widthInput.value / aspectRatio);
+                    }
+                }
+            }
+            
+            function processImage() {
+                if (!originalImage) {
+                    alert('Please upload an image first.');
+                    return;
+                }
+                
+                loadingSpinner.style.display = 'block';
+                processBtn.disabled = true;
+                
+                // Use setTimeout to allow UI to update before heavy processing
+                setTimeout(() => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    let targetWidth = parseInt(widthInput.value);
+                    let targetHeight = parseInt(heightInput.value);
+                    
+                    // Validate dimensions
+                    if (isNaN(targetWidth) || targetWidth <= 0) {
+                        alert('Please enter a valid width.');
+                        loadingSpinner.style.display = 'none';
+                        processBtn.disabled = false;
+                        return;
+                    }
+                    
+                    if (maintainAspectRadio.checked || isNaN(targetHeight) || targetHeight <= 0) {
+                        targetHeight = Math.round(targetWidth / aspectRatio);
+                    }
+                    
+                    // Set canvas dimensions
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+                    
+                    // Draw image on canvas
+                    ctx.drawImage(originalImage, 0, 0, targetWidth, targetHeight);
+                    
+                    // Get output format
+                    let format = outputFormatSelect.value;
+                    if (format === 'original') {
+                        format = fileInput.files[0].type.split('/')[1];
+                    }
+                    
+                    // Quality (0-1)
+                    const quality = parseInt(qualitySlider.value) / 100;
+                    
+                    // Convert canvas to blob
+                    canvas.toBlob((blob) => {
+                        resizedImageBlob = blob;
+                        const resizedUrl = URL.createObjectURL(blob);
+                        
+                        // Display resized image
+                        resizedPreview.src = resizedUrl;
+                        resizedSize.textContent = formatFileSize(blob.size);
+                        resizedDimensions.textContent = `${targetWidth} × ${targetHeight} px`;
+                        
+                        // Show result section
+                        resultSection.style.display = 'block';
+                        
+                        // Scroll to result
+                        resultSection.scrollIntoView({ behavior: 'smooth' });
+                        
+                        loadingSpinner.style.display = 'none';
+                        processBtn.disabled = false;
+                    }, `image/${format}`, quality);
+                }, 100);
+            }
+            
+            function downloadImage() {
+                if (!resizedImageBlob) return;
+                
+                const a = document.createElement('a');
+                const url = URL.createObjectURL(resizedImageBlob);
+                const fileName = fileInput.files[0].name;
+                const fileExt = fileName.split('.').pop();
+                let format = outputFormatSelect.value;
+                
+                if (format === 'original') {
+                    format = fileExt;
+                }
+                
+                a.href = url;
+                a.download = `resized-${fileName.replace(/\.[^/.]+$/, '')}.${format}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            
+            function resetTool() {
+                fileInput.value = '';
+                originalImage = null;
+                resizedImageBlob = null;
+                
+                widthInput.value = '800';
+                heightInput.value = '600';
+                outputFormatSelect.value = 'original';
+                qualitySlider.value = '80';
+                qualityValue.textContent = '80';
+                maintainAspectRadio.checked = true;
+                lockAspectCheckbox.checked = true;
+                
+                originalPreview.src = '';
+                resizedPreview.src = '';
+                originalSize.textContent = '-';
+                resizedSize.textContent = '-';
+                originalDimensions.textContent = '-';
+                resizedDimensions.textContent = '-';
+                
+                resultSection.style.display = 'none';
+                processBtn.disabled = true;
+                
+                updateHeightInputState();
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            // Initialize
+            updateHeightInputState();
+            processBtn.disabled = true;
+        });
+    </script>
+    
+    <!-- Google Analytics (optional) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</body>
+</html>
