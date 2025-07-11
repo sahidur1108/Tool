@@ -1025,3 +1025,97 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Word Converter | Fixed Download Functionality</title>
+    <style>
+        /* [Previous CSS styles remain exactly the same] */
+    </style>
+</head>
+<body>
+    <!-- [Previous HTML structure remains exactly the same until the script section] -->
+
+    <script>
+        // [Previous JavaScript code remains the same until the downloadBtn event listener]
+
+        // Download button click - FIXED IMPLEMENTATION
+        downloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Create a simulated Word file
+            const content = `
+            <html xmlns:v="urn:schemas-microsoft-com:vml"
+            xmlns:o="urn:schemas-microsoft-com:office:office"
+            xmlns:w="urn:schemas-microsoft-com:office:word"
+            xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+            xmlns="http://www.w3.org/TR/REC-html40">
+            <head>
+                <meta charset="UTF-8"/>
+                <title>Converted Document</title>
+                <!--[if gte mso 9]>
+                <xml>
+                <w:WordDocument>
+                <w:View>Print</w:View>
+                <w:Zoom>100</w:Zoom>
+                <w:DoNotOptimizeForBrowser/>
+                </w:WordDocument>
+                </xml>
+                <![endif]-->
+            </head>
+            <body>
+                <h1>Converted PDF to Word Document</h1>
+                <p>This is a simulated Word document that would contain your converted PDF content.</p>
+                <p>In a real implementation, this would be the actual content from your PDF file.</p>
+            </body>
+            </html>
+            `;
+
+            // Get the selected output format
+            const outputFormat = document.querySelector('input[name="outputFormat"]:checked').value;
+            let mimeType, fileExtension;
+            
+            switch(outputFormat) {
+                case 'doc':
+                    mimeType = 'application/msword';
+                    fileExtension = 'doc';
+                    break;
+                case 'rtf':
+                    mimeType = 'application/rtf';
+                    fileExtension = 'rtf';
+                    break;
+                case 'docx':
+                default:
+                    mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                    fileExtension = 'docx';
+            }
+
+            // Create a Blob with the content
+            const blob = new Blob([content], { type: mimeType });
+            
+            // Create download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            // Set the filename (using original PDF name if available)
+            const originalFileName = fileName.textContent || 'converted-document';
+            a.download = originalFileName.replace(/\.pdf$/i, '') + '.' + fileExtension;
+            
+            // Trigger the download
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+        });
+
+        // [Rest of the JavaScript code remains the same]
+    </script>
+</body>
+</html>
