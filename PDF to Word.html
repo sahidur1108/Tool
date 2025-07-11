@@ -1,113 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Free PDF to Word Converter Tool - Easily convert your PDF documents to editable Word format while maintaining original formatting. Supports image optimization and compression settings.">
-  <meta name="keywords" content="PDF to Word, Convert PDF, Editable Word Document, PDF Converter, Online PDF Tool">
-  <meta name="author" content="YourSiteName">
-  <title>PDF to Word Converter | Convert PDFs to Editable Word Docs Online</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
-    header, footer { background: #333; color: white; text-align: center; padding: 1em 0; }
-    main { max-width: 800px; margin: auto; padding: 2em; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    .input-group { margin-bottom: 1em; }
-    label { display: block; margin-bottom: 0.5em; font-weight: bold; }
-    input[type="file"], select, button { width: 100%; padding: 0.5em; }
-    #ads-top, #ads-bottom { margin: 1em 0; text-align: center; }
-    @media (max-width: 600px) {
-      main { padding: 1em; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Word Converter | Free & Online</title>
+    <meta name="description" content="Convert your PDF files to editable Word documents for free. Our online tool also allows you to compress images to reduce file size.">
+    <meta name="keywords" content="PDF to Word, PDF converter, Word converter, PDF to DOCX, online converter, free converter">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+     crossorigin="anonymous"></script>
 </head>
 <body>
-  <header>
-    <h1>PDF to Word Converter</h1>
-    <p>Convert PDF files to editable Word documents</p>
-  </header>
+    <header>
+        <h1>PDF to Word Converter</h1>
+    </header>
 
-  <div id="ads-top">
-    <!-- Google AdSense Code Placeholder -->
-    <!-- Replace with your AdSense code -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
+    <main>
+        <div class="converter-container">
+            <h2>Select PDF to Convert</h2>
+            <p>Choose a PDF file from your computer to convert to an editable Word document.</p>
+            <input type="file" id="pdf-file" accept=".pdf">
+            <label for="pdf-file" class="file-label">Choose File</label>
+            <p id="file-name"></p>
 
-  <main>
-    <form id="convertForm">
-      <div class="input-group">
-        <label for="pdfFile">Upload PDF File</label>
-        <input type="file" id="pdfFile" accept="application/pdf" required />
-      </div>
+            <div class="options-container">
+                <h3>Options</h3>
+                <label for="compression-level">Image Compression Level:</label>
+                <select id="compression-level">
+                    <option value="high">High (Smallest File Size)</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low (Best Quality)</option>
+                </select>
+            </div>
 
-      <div class="input-group">
-        <label for="compression">Select Compression Level</label>
-        <select id="compression">
-          <option value="none">No Compression</option>
-          <option value="low">Low (Best Quality)</option>
-          <option value="medium">Medium</option>
-          <option value="high">High (Smallest File Size)</option>
-        </select>
-      </div>
+            <button id="convert-btn">Convert to Word</button>
 
-      <button type="submit">Convert to Word</button>
-    </form>
-    <div id="output" style="margin-top: 2em;"></div>
-  </main>
+            <div class="progress-container" style="display: none;">
+                <p>Converting...</p>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
 
-  <div id="ads-bottom">
-    <!-- Google AdSense Code Placeholder -->
-    <!-- Replace with your AdSense code -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
+            <div class="download-container" style="display: none;">
+                <p>Your Word document is ready!</p>
+                <a href="#" id="download-link" class="download-btn" download="converted.docx">Download Word File</a>
+            </div>
+        </div>
 
-  <footer>
-    <p>&copy; 2025 YourSiteName. All rights reserved.</p>
-  </footer>
+        <div class="ad-space">
+            <h2>Advertisement</h2>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
 
-  <script>
-    document.getElementById('convertForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const file = document.getElementById('pdfFile').files[0];
-      const compression = document.getElementById('compression').value;
-      const outputDiv = document.getElementById('output');
+    <footer>
+        <p>&copy; 2025 Your Website Name. All rights reserved.</p>
+    </footer>
 
-      if (!file) {
-        outputDiv.textContent = 'Please upload a PDF file.';
-        return;
-      }
-
-      outputDiv.innerHTML = '<p>Converting... Please wait.</p>';
-
-      try {
-        // Placeholder conversion simulation
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulated delay
-
-        const wordBlob = new Blob(["Dummy Word Content: PDF Converted"], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(wordBlob);
-        link.download = file.name.replace('.pdf', '.docx');
-        link.textContent = 'Download Word Document';
-        outputDiv.innerHTML = '';
-        outputDiv.appendChild(link);
-      } catch (err) {
-        outputDiv.innerHTML = '<p>Error during conversion. Please try again.</p>';
-      }
-    });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
