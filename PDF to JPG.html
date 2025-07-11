@@ -79,6 +79,18 @@
 
 <!-- Hidden Download Button -->
 <a id="downloadBtn" href="#" download="converted-image.jpg" style="display: none;" class="btn">Download JPG</a>
+<script>
+function showImageAndEnableDownload(imageDataUrl) {
+    // Show converted image
+    const output = document.getElementById('output');
+    output.innerHTML = `<img src="${imageDataUrl}" alt="Converted Image" style="max-width:100%; height:auto;">`;
+
+    // Show and set download link
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn.href = imageDataUrl;
+    downloadBtn.style.display = 'inline-block';
+}
+</script>
 
 
     <!-- Ad Slot Bottom -->
